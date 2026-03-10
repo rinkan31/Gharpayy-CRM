@@ -29,7 +29,10 @@ export default function VisitsPage() {
         leads (
           name,
           location,
-          agent_id
+          agent_id,
+          agents (
+            name
+          )
         )
       `)
       .order('visit_date', { ascending: true });
@@ -136,9 +139,7 @@ export default function VisitsPage() {
                   </td>
                   <td className="px-6 py-5">
                     <span className="text-sm font-bold text-slate-700">
-                      {visit.leads?.agent_id === '1' ? 'Rahul Sharma' : 
-                       visit.leads?.agent_id === '2' ? 'Priya Nair' : 
-                       visit.leads?.agent_id === '3' ? 'Amit Patel' : 'Sneha Reddy'}
+                      {visit.leads?.agents?.name || 'Unassigned'}
                     </span>
                   </td>
                   <td className="px-6 py-5">
@@ -153,16 +154,16 @@ export default function VisitsPage() {
                   </td>
                   <td className="px-6 py-5">
                     {(visit.outcome === 'Pending' || visit.outcome === 'Scheduled') ? (
-                      <div className="flex items-center justify-center gap-4">
+                      <div className="flex items-center justify-center gap-2">
                         <button 
                           onClick={() => handleUpdateStatus(visit.id, visit.lead_id, 'Completed')}
-                          className="text-[10px] font-black text-emerald-600 hover:text-emerald-700 transition-colors uppercase tracking-widest"
+                          className="text-[10px] font-black text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 px-3 py-1.5 rounded-xl transition-all uppercase tracking-widest"
                         >
                           Complete
                         </button>
                         <button 
                           onClick={() => handleUpdateStatus(visit.id, visit.lead_id, 'No Show')}
-                          className="text-[10px] font-black text-red-600 hover:text-red-700 transition-colors uppercase tracking-widest"
+                          className="text-[10px] font-black text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-xl transition-all uppercase tracking-widest"
                         >
                           No Show
                         </button>

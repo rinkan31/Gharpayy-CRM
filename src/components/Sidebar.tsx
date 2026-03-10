@@ -25,12 +25,14 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [isCollapsed, setIsCollapsed] = React.useState(true);
 
   return (
     <motion.aside
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
+      onMouseEnter={() => setIsCollapsed(false)}
+      onMouseLeave={() => setIsCollapsed(true)}
       className="h-screen glass-nav text-white flex flex-col sticky top-0 left-0 transition-all duration-300 z-50 overflow-hidden"
     >
       {/* Brand Header */}
@@ -77,15 +79,6 @@ export default function Sidebar() {
           );
         })}
       </nav>
-
-      {/* Collapse Toggle */}
-      <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute bottom-32 -right-0 p-2 bg-primary text-white rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-amber-600 shadow-xl"
-        style={{ opacity: 0.8 }}
-      >
-        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-      </button>
 
       {/* Add Lead Button */}
       <div className="p-4 mt-auto">

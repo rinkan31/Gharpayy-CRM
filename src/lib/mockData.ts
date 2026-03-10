@@ -53,7 +53,8 @@ export const mockVisits: any[] = [
     leads: {
       name: 'John Doe',
       location: 'Koramangala',
-      agent_id: 'agent-1'
+      agent_id: 'agent-1',
+      agents: { name: 'Rahul Sharma' }
     }
   }
 ];
