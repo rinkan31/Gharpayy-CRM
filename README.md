@@ -1,5 +1,7 @@
 # Gharpayy CRM
 
+**Live Deployment:** [https://gharpayycrm.vercel.app](https://gharpayycrm.vercel.app)
+
 A modern, full-stack Customer Relationship Management (CRM) built tailored for managing real estate leads, visits, agents, and analytics. Powered by Next.js and Supabase.
 
 ## 🚀 Tech Stack
@@ -86,7 +88,7 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the CRM dashboard.
+Open [https://gharpayycrm.vercel.app](https://gharpayycrm.vercel.app) with your browser to see the live CRM dashboard.
 
 ## 🤝 Scripts
 
