@@ -1,16 +1,10 @@
-import { supabase, isMock } from './supabase';
-import { getNextMockAgent } from './mockData';
+import { supabase } from './supabase';
 
 /**
  * Automatically selects the next agent based on who was assigned a lead least recently.
  * This ensures a fair "Round Robin" distribution.
  */
 export async function getNextAgent() {
-  if (isMock) {
-    console.log("getNextAgent: Using MOCK assignment");
-    return getNextMockAgent();
-  }
-
   try {
     console.log("getNextAgent: Fetching agents from Supabase...");
     // 1. Fetch the agent with the oldest 'last_assigned_at' timestamp

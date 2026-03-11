@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase, isMock } from '@/lib/supabase';
-import { mockLeads } from '@/lib/mockData';
+import { supabase } from '@/lib/supabase';
 import { Lead } from '@/types';
 import { 
   LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
@@ -22,11 +21,6 @@ export default function AnalyticsPage() {
 
   const fetchLeads = async () => {
     setLoading(true);
-    if (isMock) {
-      setLeads([...mockLeads]);
-      setLoading(false);
-      return;
-    }
     const { data } = await supabase.from('leads').select('*').order('created_at', { ascending: true });
     if (data) setLeads(data);
     setLoading(false);

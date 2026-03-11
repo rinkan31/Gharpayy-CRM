@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase, isMock } from '@/lib/supabase';
-import { mockAgents } from '@/lib/mockData';
+import { supabase } from '@/lib/supabase';
 import { LeadStatus } from '@/types';
 import { 
   ArrowLeft, UserPlus, Phone, Mail, IndianRupee, 
@@ -51,10 +50,6 @@ export default function AddLeadPage() {
 
   useEffect(() => {
     const fetchAgents = async () => {
-      if (isMock) {
-        setAgents(mockAgents.map(a => ({ id: a.id, name: a.name })));
-        return;
-      }
       const { data } = await supabase.from('agents').select('id, name');
       if (data) setAgents(data);
     };

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase, isMock } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { getNextAgent } from '@/lib/assignment';
-import { addMockLead } from '@/lib/mockData';
 
 export async function POST(request: Request) {
   try {
@@ -29,18 +28,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No agents available for assignment. Please add an agent to the database first.' }, { status: 500 });
     }
 
-    // 3. Insert into Supabase (or Mock)
-    if (isMock) {
-      console.log("Inserting lead into MOCK store...");
-      const mockLead = addMockLead({
-        name, phone, email, budget, source, location,
-        priority, type, members: parseInt(members as any) || 1,
-        move_in_date, amenities, agent_id: assignedAgentId,
-        status: 'New Lead'
-      });
-      return NextResponse.json({ message: 'Lead captured successfully (MOCK)', lead: mockLead }, { status: 201 });
-    }
-
+    // 3. Insert into Supabase
     console.log("Inserting lead into Supabase...");
     const { data, error } = await supabase
       .from('leads')

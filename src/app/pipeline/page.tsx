@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase, isMock } from '@/lib/supabase';
-import { mockLeads } from '@/lib/mockData';
+import { supabase } from '@/lib/supabase';
 import { Lead, LeadStatus } from '@/types';
 import LeadPipeline from '@/components/leads/LeadPipeline';
 
@@ -14,10 +13,6 @@ export default function PipelinePage() {
   }, []);
 
   const fetchLeads = async () => {
-    if (isMock) {
-      setLeads([...mockLeads]);
-      return;
-    }
     const { data } = await supabase
       .from('leads')
       .select('*, agents(name)')
@@ -26,15 +21,6 @@ export default function PipelinePage() {
   };
 
   const handleUpdateStatus = async (id: string, status: LeadStatus) => {
-    if (isMock) {
-      const lead = mockLeads.find(l => l.id === id);
-      if (lead) {
-        lead.status = status;
-        lead.updated_at = new Date().toISOString();
-      }
-      setLeads([...mockLeads]);
-      return;
-    }
     // 1. Update Lead Status
     const { error: leadError } = await supabase.from('leads').update({ status }).eq('id', id);
     if (leadError) {

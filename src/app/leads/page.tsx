@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase, isMock } from '@/lib/supabase';
-import { mockLeads } from '@/lib/mockData';
+import { supabase } from '@/lib/supabase';
 import { Lead } from '@/types';
 import { Search, Filter, ChevronDown, MoreHorizontal, User } from 'lucide-react';
 
@@ -25,10 +24,6 @@ export default function LeadsPage() {
   }, []);
 
   const fetchLeads = async () => {
-    if (isMock) {
-      setLeads(mockLeads);
-      return;
-    }
     const { data } = await supabase
       .from('leads')
       .select('*, agents(name)')
